@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dirección Este - File Oficial de Sahumadores</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 12px; background-color: #fcfcfc; color: #333; }
+    .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 6px solid #8a1c2a; }
+    h2, h3 { text-align: center; color: #2c3e50; margin-top: 5px; }
+    .seccion-file { background: #fffcfc; border: 1px solid #f5e6e8; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+    .titulo-sec { font-size: 14px; font-weight: bold; color: #8a1c2a; margin-top: 0; margin-bottom: 10px; border-bottom: 1px dashed #8a1c2a; padding-bottom: 4px; }
+    label { display: block; margin: 10px 0 4px; font-size: 13px; font-weight: 600; color: #4a5568; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; box-sizing: border-box; font-size: 14px; margin-bottom: 5px; }
+    textarea { height: 65px; resize: none; }
+    button { width: 100%; padding: 12px; background-color: #8a1c2a; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: bold; margin-top: 15px; cursor: pointer; transition: background 0.2s; }
+    button:hover { background-color: #6d141f; }
+    #status-msg { text-align: center; margin-top: 12px; padding: 10px; border-radius: 6px; font-weight: bold; display: none; }
+    .exito { background-color: #e8f5e9; color: #2e7d32; }
+    .alerta { background-color: #ffebee; color: #c62828; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>🔥 Dirección Este (Fuego)</h2>
+    <h3>Expediente Oficial de Sahumadores</h3>
+    <p style="font-size:12px; color:#7f8c8d; text-align:center; margin-top:-8px;">Actualización de hojas de vida, estatus y transiciones de linaje.</p>
+    
+    <div id="status-msg"></div>
+
+    <!-- SECCIÓN 1: DATOS CIVILES -->
+    <div class="seccion-file">
+      <div class="titulo-sec">📋 Identidad Civil de Base</div>
+      <label>Nombre Completo del Sahumador(a):</label>
+      <input type="text" id="nombre" placeholder="Ej. María Elena Pérez">
+      
+      <label>Cédula de Identidad (C.I.):</label>
+      <input type="text" id="ci" placeholder="Ej. 1234567 SC">
+      
+      <label>Número de Teléfono / WhatsApp:</label>
+      <input type="text" id="telefono" placeholder="Ej. 70000000">
+    </div>
+
+    <!-- SECCIÓN 2: HITOS DE LINAJE -->
+    <div class="seccion-file">
+      <div class="titulo-sec">✨ Fechas e Hitos Espirituales</div>
+      <label>Fecha de Ceremonia de Iniciación:</label>
+      <input type="date" id="fechaIniciacion">
+      
+      <label>Tipo de Miembro:</label>
+      <select id="tipoMiembro">
+        <option value="Sahumador de Tribu">Sahumador de Tribu (Miembro del Círculo)</option>
+        <option value="Pájaro Solitario">Pájaro Solitario (Independiente / No Miembro)</option>
+      </select>
+      
+      <label>Fecha de Admisión Formal en la Tribu:</label>
+      <input type="date" id="fechaEntradaTribu">
+    </div>
+
+    <!-- SECCIÓN 3: ESTADO OPERATIVO -->
+    <div class="seccion-file">
+      <div class="titulo-sec">🔄 Condición y Tránsito Actual</div>
+      <label>Condición Operativa Actual:</label>
+      <select id="condicionActual">
+        <option value="Activo">Activo (Vigente en el Círculo)</option>
+        <option value="Con Permiso">Con Permiso (Receso Temporal)</option>
+        <option value="Retirado">Retirado (Siembra / Salida Oficial)</option>
+      </select>
+      
+      <label>Historial de Permisos (Cuándo pidió, cuándo volvió):</label>
+      <textarea id="historialPermisos" placeholder="Detallar transiciones: 'Pidió permiso el 10/05/2026. Retornó el 21/09/2026...'"></textarea>
+      
+      <label>Fecha de Retiro Oficial (Si aplica):</label>
+      <input type="date" id="fechaRetiro">
+      
+      <label>Historial de Guardianajes (Cargos Pasados y Actuales):</label>
+      <textarea id="historialGuardianajes" placeholder="Registrar tránsitos: 'Guardián del Norte (Invierno 2025), Guardián del Sur (Primavera 2026)...'"></textarea>
+    </div>
+
+    <button onclick="guardarExpedienteEste()">Sellar y Guardar File en el Linaje 🔥</button>
+  </div>
+  <script>
+    // URL UNIVERSAL PROVISTA POR TU CUENTA DE GOOGLE APPS SCRIPT DEL ESTE
+    // Reemplaza las letras de abajo por el link largo que copiaste al autorizar
+    const WEB_APP_URL_ESTE = "https://script.google.com/macros/s/AKfycbxsmQ32IYJMZ5j46J2MNuZLEqPs5cuZ1SqN9DqJX1h6N05Bm-OXZiaUB3cfeMz88hhirA/exec";
+
+    function alertarPantalla(mensaje, esError) {
+      var box = document.getElementById("status-msg");
+      box.innerText = mensaje;
+      box.className = esError ? "status-msg alerta" : "status-msg exito";
+      box.style.display = "block";
+      window.scrollTo(0, 0);
+    }
+
+    function guardarExpedienteEste() {
+      var nombreTxt = document.getElementById("nombre").value;
+      if (!nombreTxt.trim()) {
+        alertarPantalla("❌ El campo 'Nombre Completo' es obligatorio para archivar el File.", true);
+        return;
+      }
+
+      alertarPantalla("Guardando expediente en el Altar del Este...", false);
+
+      // Empaquetar el File completo con las etiquetas exactas que espera el Código.gs
+      var datosFile = {
+        target_sheet: "Tribu_File_OfICIAL",
+        nombre: nombreTxt,
+        ci: document.getElementById("ci").value,
+        telefono: document.getElementById("telefono").value,
+        fechaIniciacion: document.getElementById("fechaIniciacion").value,
+        condicionActual: document.getElementById("condicionActual").value,
+        tipoMiembro: document.getElementById("tipoMiembro").value,
+        fechaEntradaTribu: document.getElementById("fechaEntradaTribu").value,
+        historialPermisos: document.getElementById("historialPermisos").value,
+        fechaRetiro: document.getElementById("fechaRetiro").value,
+        historialGuardianajes: document.getElementById("historialGuardianajes").value
+      };
+
+      // Envío asíncrono blindado a la API sin colgar el navegador móvil
+      fetch(WEB_APP_URL_ESTE, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datosFile)
+      })
+      .then(function() {
+        alertarPantalla("🔥 ¡File de " + nombreTxt + " sellado e indexado de forma correcta en Google Sheets! Puede cerrar esta pestaña.", false);
+        // Limpieza de campos clave de identidad
+        document.getElementById("nombre").value = "";
+        document.getElementById("ci").value = "";
+        document.getElementById("telefono").value = "";
+      })
+      .catch(function(error) {
+        alertarPantalla("❌ Error de comunicación: " + error.toString(), true);
+      });
+    }
+  </script>
+</body>
+</html>
